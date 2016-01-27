@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.spring.initalizr</groupId>
-	<artifactId>initializr</artifactId>
+	<groupId>ch.sbb.esta.cloud</groupId>
+	<artifactId>initializr-esta</artifactId>
 	<version>1.0.1.BUILD-SNAPSHOT</version>
 
 	<properties>
@@ -12,9 +12,14 @@
 		<selenium.version>2.43.1</selenium.version>
 		<spring.boot.version>1.3.1.RELEASE</spring.boot.version>
 		<java.version>1.7</java.version>
+		<initializr.version>1.0.1.BUILD-SNAPSHOT</initializr.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>io.spring.initalizr</groupId>
+			<artifactId>initializr</artifactId>			
+		</dependency>	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -100,11 +105,37 @@
 			<artifactId>selenium-support</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+
+		<!--Test dependencies -->
+		<dependency>
+			<groupId>io.spring.initalizr</groupId>
+			<artifactId>initializr</artifactId>
+			<type>test-jar</type>
+		</dependency>
+
 	</dependencies>
 
 
 	<dependencyManagement>
-		<dependencies>
+			<dependencies>
+				<dependency>
+				<groupId>io.spring.initalizr</groupId>
+				<artifactId>initializr</artifactId>
+				<version>${initializr.version}</version>
+			</dependency>
+			<!--Test dependencies -->
+			<dependency>
+				<groupId>io.spring.initalizr</groupId>
+				<artifactId>initializr</artifactId>
+				<version>${initializr.version}</version>
+				<type>test-jar</type>
+			</dependency>
+
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
@@ -243,6 +274,10 @@
 								</configuration>
 							</execution>
 						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
 					</plugin>
 				</plugins>
 			</build>

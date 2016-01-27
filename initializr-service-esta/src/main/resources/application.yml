@@ -1,0 +1,422 @@
+info:
+  project:
+    name: Spring Start
+    version: 0.4.0
+  # remember to update static/install.sh as well:
+  spring-boot:
+    version: 1.3.1.RELEASE
+
+server:
+  compression:
+    enabled: true
+    mime-types: application/json,text/css,text/html
+    min-response-size: 2048
+
+initializr:
+  env:
+    boms:
+      vaadin-bom:
+        groupId: com.vaadin
+        artifactId: vaadin-bom
+        version: 7.5.5
+      cloud-bom:
+        groupId: org.springframework.cloud
+        artifactId: spring-cloud-starter-parent
+        mappings:
+          - versionRange: "[1.2.3.RELEASE,1.3.0.M1)"
+            version: Angel.SR4
+          - versionRange: "[1.3.0.M2,1.3.1.RELEASE]"
+            version: Brixton.M4
+            repositories: spring-snapshots,spring-milestones
+          - versionRange: 1.3.2.BUILD-SNAPSHOT
+            version: Brixton.BUILD-SNAPSHOT
+            repositories: spring-snapshots,spring-milestones
+  dependencies:
+    - name: Core
+      content:
+        - name: Security
+          id: security
+          description: Secure your application via spring-security
+          weight: 100
+          enabled: true
+        - name: AOP
+          id: aop
+          description: Aspect-oriented programming including spring-aop and AspectJ
+          enabled: true
+        - name: Bitronix (JTA)
+          id: jta-bitronix
+          description: JTA distributed transactions via Bitronix
+          versionRange: 1.2.0.M1
+        - name: Cache
+          id: cache
+          description: Spring's Cache abstraction
+          versionRange: 1.3.0.M1
+        - name: DevTools
+          id: devtools
+          groupId: org.springframework.boot
+          artifactId: spring-boot-devtools
+          description: Spring Boot Development Tools
+          versionRange: 1.3.0.M1
+          starter: false
+        - name: Validation
+          id: validation
+          description: JSR-303 validation infrastructure (already included with web)
+          versionRange: 1.3.0.M1
+          enabled: true
+        - name: Session
+          id: session
+          groupId: org.springframework.session
+          artifactId: spring-session
+          description: API and implementations for managing a user’s session information
+          versionRange: 1.3.0.M2
+          starter: false
+        - name: Retry
+          id: retry
+          groupId: org.springframework.retry
+          artifactId: spring-retry
+          description: Provide declarative retry support via spring-retry
+          versionRange: 1.3.0.M2
+          starter: false
+    - name: ESTA libs (options will be replaced soon)
+      content:
+        - name: ESTA batch
+          id: esta-batch
+          description: API der ESTA batch Applikation
+          groupId: ch.sbb.esta
+          artifactId: esta-batch
+          starter: false
+        - name: ESTA core
+          id: esta-core
+          description: API der ESTA core Applikation
+          groupId: ch.sbb.esta
+          artifactId: esta-core
+          scope: runtime
+          starter: false
+    - name: Web
+      content:
+        - name: Web
+          id: web
+          description: Full-stack web development with Tomcat and Spring MVC
+          weight: 100
+          facets:
+            - web
+        - name: Websocket
+          id: websocket
+          description: Websocket development with SockJS and STOMP
+        - name: WS
+          id: ws
+          description: Contract-first SOAP service development with Spring Web Services
+        - name: Jersey (JAX-RS)
+          id: jersey
+          description: the Jersey RESTful Web Services framework
+          versionRange: 1.2.0.RELEASE
+        - name: HATEOAS
+          id: hateoas
+          description: HATEOAS-based RESTful services
+          versionRange: 1.2.2.RELEASE
+        - name: Mobile
+          id: mobile
+          description: Simplify the development of mobile web applications with spring-mobile
+        - name: REST Docs
+          id: restdocs
+          description: Document RESTful services by combining hand-written and auto-generated documentation
+          groupId: org.springframework.restdocs
+          artifactId: spring-restdocs-mockmvc
+          versions:
+            - versionRange: "[1.2.0.RELEASE,1.3.0.RC1)"
+              version: 1.0.1.RELEASE
+          scope: test
+    - name: Template Engines
+      content:
+        - name: Freemarker
+          id: freemarker
+          description: FreeMarker templating engine
+          facets:
+            - web
+          keywords:
+            - template
+        - name: Velocity
+          id: velocity
+          description: Velocity templating engine
+          facets:
+            - web
+          keywords:
+            - template
+        - name: Mustache
+          id: mustache
+          description: Mustache templating engine
+          versionRange: 1.2.2.RELEASE
+          facets:
+            - web
+          keywords:
+            - template
+    - name: Data
+      content:
+        - name: JDBC
+          id: jdbc
+          description: JDBC databases
+        - name: JPA
+          id: data-jpa
+          description: Java Persistence API including spring-data-jpa, spring-orm and Hibernate
+          weight: 100
+          aliases:
+            - jpa
+        - name: MongoDB
+          id: data-mongodb
+          description: MongoDB NoSQL Database, including spring-data-mongodb
+          weight: 50
+        - name: Cassandra
+          id: data-cassandra
+          description: Cassandra NoSQL Database, including spring-data-cassandra
+          versionRange: 1.3.0.RC1
+        - name: Redis
+          id: redis
+          description: REDIS key-value data store, including spring-redis
+        - name: Elasticsearch
+          id: data-elasticsearch
+          description: Elasticsearch search and analytics engine including spring-data-elasticsearch
+          weight: 10
+    - name: Cloud Core
+      bom: cloud-bom
+      versionRange: "1.2.3.RELEASE"
+      content:
+        - name: Cloud Connectors
+          id: cloud-connectors
+          description: Simplifies connecting to services in cloud platforms, including spring-cloud-connector and spring-cloud-cloudfoundry-connector
+          versionRange: 1.2.0.RELEASE
+        - name: Cloud Bootstrap
+          id: cloud-starter
+          description: spring-cloud-context (e.g. Bootstrap context and @RefreshScope)
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter
+          weight: 100
+        - name: Cloud Security
+          id: cloud-security
+          description: Secure load balancing and routing with spring-cloud-security
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-security
+        - name: Cloud OAuth2
+          id: cloud-oauth2
+          description: OAuth2 and distributed application patterns with spring-cloud-security
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-oauth2
+    - name: Cloud Config
+      bom: cloud-bom
+      versionRange: "1.2.3.RELEASE"
+      content:
+        - name: Config Client
+          id: cloud-config-client
+          description: spring-cloud-config Client
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-config
+          weight: 100
+        - name: Config Server
+          id: cloud-config-server
+          description: Central management for configuration via a git or svn backend
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-config-server
+    - name: Cloud Discovery
+      bom: cloud-bom
+      versionRange: "1.2.3.RELEASE"
+      content:
+        - name: Eureka Discovery
+          id: cloud-eureka
+          description: Service discovery using spring-cloud-netflix and Eureka
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-eureka
+          weight: 100
+        - name: Eureka Server
+          id: cloud-eureka-server
+          description: spring-cloud-netflix Eureka Server
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-eureka-server
+    - name: Cloud Routing
+      bom: cloud-bom
+      versionRange: "1.2.3.RELEASE"
+      content:
+        - name: Ribbon
+          id: cloud-ribbon
+          description: Client side load balancing with spring-cloud-netflix and Ribbon
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-ribbon
+    - name: Cloud Circuit Breaker
+      bom: cloud-bom
+      versionRange: "1.2.3.RELEASE"
+      content:
+        - name: Hystrix
+          id: cloud-hystrix
+          description: Circuit breaker with spring-cloud-netflix Hystrix
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-hystrix
+        - name: Hystrix Dashboard
+          id: cloud-hystrix-dashboard
+          description: Circuit breaker dashboard with spring-cloud-netflix Hystrix
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-hystrix-dashboard
+        - name: Turbine
+          id: cloud-turbine
+          description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and server-sent events
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-turbine
+        - name: Turbine AMQP
+          id: cloud-turbine-amqp
+          description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and AMQP
+          versionRange: "[0.0.0.RELEASE,1.3.0.M5]"
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-turbine-amqp
+        - name: Turbine Stream
+          id: cloud-turbine-stream
+          description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and Spring Cloud Stream (choose a specific Stream binder implementation to complement this)
+          versionRange: "(1.3.0.M5,999.9.9.RELEASE]"
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-turbine-stream
+          weight: -1
+    - name: Cloud Tracing
+      bom: cloud-bom
+      versionRange: "1.3.0.M4"
+      content:
+        - name: Sleuth
+          id: cloud-starter-sleuth
+          description: Distributed tracing via logs with spring-cloud-sleuth
+          versionRange: 1.3.0.M4
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-sleuth
+    - name: Cloud Messaging
+      bom: cloud-bom
+      versionRange: "1.2.3.RELEASE"
+      content:
+        - name: Cloud Bus AMQP
+          id: cloud-bus-amqp
+          description: A simple control bus with AMQP and spring-cloud-bus-amqp
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-bus-amqp
+        - name: Cloud Bus Redis
+          id: cloud-bus-redis
+          description: A simple control bus with Redis and spring-cloud-bus
+          versionRange: "(1.3.0.M5,9999.9.9.RELEASE]"
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-starter-bus-redis
+    - name: Cloud Cluster
+      bom: cloud-bom
+      versionRange: "1.3.0.M4"
+      content:
+        - name: Cluster Redis
+          id: cloud-cluster-redis
+          description: Leadership election and global state with Redis and spring-cloud-cluster-redis
+          versionRange: 1.3.0.M4
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-cluster-redis
+        - name: Cluster Hazelcast
+          id: cloud-cluster-hazelcast
+          description: Leadership election and global state with Hazelcast and spring-cloud-cluster-hazelcast
+          versionRange: 1.3.0.M4
+          groupId: org.springframework.cloud
+          artifactId: spring-cloud-cluster-hazelcast
+    - name: Database
+      content:
+        - name: H2
+          id: h2
+          description: H2 database (with embedded support)
+          groupId: com.h2database
+          artifactId: h2
+          scope: runtime
+          starter: false
+        - name: PostgreSQL
+          id: postgresql
+          description: PostgreSQL jdbc driver
+          groupId: org.postgresql
+          artifactId: postgresql
+          versions:
+            - versionRange: "[1.2.0.RELEASE,1.3.0.M1)"
+              version: 9.4-1201-jdbc41
+          scope: runtime
+          starter: false
+    - name: I/O
+      content:
+        - name: Batch
+          id: batch
+          description: Spring Batch including HSQLDB database
+        - name: Activiti
+          id: activiti-basic
+          description: Activiti BPMN workflow engine
+          groupId: org.activiti
+          artifactId: activiti-spring-boot-starter-basic
+          version: 5.19.0
+        - name: AMQP
+          id: amqp
+          description: Advanced Message Queuing Protocol via spring-rabbit
+        - name: Mail
+          id: mail
+          description: javax.mail
+          versionRange: 1.2.0.RC1
+    - name: Ops
+      content:
+        - name: Actuator
+          id: actuator
+          description: Production ready features to help you monitor and manage your application
+        - name: Actuator Docs
+          id: actuator-docs
+          description: API documentation for the Actuator endpoints
+          versionRange: 1.3.0.M4
+          groupId: org.springframework.boot
+          artifactId: spring-boot-actuator-docs
+        - name: Remote Shell
+          id: remote-shell
+          description: CRaSH shell integration
+  types:
+    - name: Maven Project
+      id: maven-project
+      description: Generate a Maven based project archive
+      sts-id: starter.zip
+      tags:
+        build: maven
+        format: project
+      default: true
+      action: /starter.zip
+    - name: Maven POM
+      id: maven-build
+      description: Generate a Maven pom.xml
+      sts-id: pom.xml
+      tags:
+        build: maven
+        format: build
+      default: false
+      action: /pom.xml
+  packagings:
+    - name: Jar
+      id: jar
+      default: true
+    - name: War
+      id: war
+      default: false
+  javaVersions:
+    - id: 1.8
+      default: true
+    - id: 1.7
+      default: false
+    - id: 1.6
+      default: false
+  languages:
+    - name: Java
+      id: java
+      default: true
+  bootVersions:
+    - name : Latest SNAPSHOT
+      id: 1.2.4.BUILD-SNAPSHOT
+      default: false
+    - name: 1.2.3
+      id: 1.2.3.RELEASE
+      default: true
+    - name: 1.1.12
+      id: 1.1.12.RELEASE
+      default: false
+  estaTemplates:
+    - name: <chose module>
+      id: none
+      default: true
+    - name: ESTA Demo Customer
+      id: esta-demo-customer
+      default: false
+    - name: ESTA Demo Backend
+      id: esta-demo-backend
+      default: false

@@ -55,6 +55,9 @@ class InitializrMetadata {
 
 	final TextCapability packageName = new PackageCapability(groupId)
 
+	final SingleSelectCapability estaTemplates =
+			new SingleSelectCapability('estaTemplate', 'Esta Template', 'esta template')
+
 	InitializrMetadata() {
 		this(new InitializrConfiguration())
 	}
@@ -81,6 +84,7 @@ class InitializrMetadata {
 		this.artifactId.merge(other.artifactId)
 		this.version.merge(other.version)
 		this.packageName.merge(other.packageName)
+		this.estaTemplates.merge(other.estaTemplates)
 	}
 
 	/**
@@ -147,6 +151,7 @@ class InitializrMetadata {
 		defaults['name'] = name.content
 		defaults['description'] = description.content
 		defaults['packageName'] = packageName.content
+		defaults['estaTemplate'] = defaultId(estaTemplates)
 		defaults
 	}
 

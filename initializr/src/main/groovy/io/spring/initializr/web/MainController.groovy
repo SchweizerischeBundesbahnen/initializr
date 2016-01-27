@@ -16,6 +16,8 @@
 
 package io.spring.initializr.web
 
+import io.spring.initializr.generator.ProjectGeneratorInterface
+
 import java.nio.charset.StandardCharsets
 import java.util.concurrent.TimeUnit
 
@@ -62,7 +64,7 @@ class MainController extends AbstractInitializrController {
 	static final MediaType HAL_JSON_CONTENT_TYPE = MediaType.parseMediaType('application/hal+json')
 
 	@Autowired
-	private ProjectGenerator projectGenerator
+	private ProjectGeneratorInterface projectGenerator
 
 	@Autowired
 	private DependencyMetadataProvider dependencyMetadataProvider

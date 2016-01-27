@@ -108,6 +108,7 @@
                     $('#' + param.name).val(value);
                     $('#' + param.name).change();
                     break;
+                case 'estaTemplate':
             }
         });
     }
