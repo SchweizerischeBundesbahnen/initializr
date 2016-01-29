@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>ch.sbb.esta.cloud</groupId>
+	<artifactId>initializr-esta-parent</artifactId>
+	<version>1.0.1.BUILD-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>${project.artifactId}</name>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.3.1.RELEASE</version>
+		<relativePath/>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<selenium.version>2.43.1</selenium.version>
+		<spring.boot.version>1.3.1.RELEASE</spring.boot.version>
+		<java.version>1.7</java.version>
+		<initializr.version>1.0.1.BUILD-SNAPSHOT</initializr.version>
+	</properties>
+
+	<modules>
+		<module>../initializr</module>
+		<module>../initializr-esta</module>
+		<module>../initializr-service-esta</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>ch.sbb.esta.cloud</groupId>
+				<artifactId>initializr</artifactId>
+				<version>${initializr.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.sbb.esta.cloud</groupId>
+				<artifactId>initializr-esta</artifactId>
+				<version>${initializr.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>
