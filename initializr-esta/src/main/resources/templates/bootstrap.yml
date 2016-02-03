@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: ${moduleId}
+  cloud:
+    config:
+      uri: \${ESTA_CLOUDCONFIG_CONFIG_SERVER_URL:http://localhost:8888/}
+      label: \${ESTA_CLOUDCONFIG_LABEL:develop}
+  profiles:
+    active: \${ESTA_CLOUDPROFILES_ACTIVE:dev}
+

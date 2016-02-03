@@ -80,6 +80,11 @@ class Dependency extends MetadataElement {
 	int weight
 
 	/**
+	 * Specify if the dependency option should be selected by default.
+	 */
+	boolean enabled = false
+
+	/**
 	 * Specify if the dependency represents a "starter", i.e. the sole presence of
 	 * that dependency is enough to bootstrap the context.
 	 */

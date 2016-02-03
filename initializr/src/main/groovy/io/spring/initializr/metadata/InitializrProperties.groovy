@@ -101,6 +101,12 @@ class InitializrProperties extends InitializrConfiguration {
 	@JsonIgnore
 	final SimpleElement packageName = new SimpleElement()
 
+	/**
+	 * Available esta templates.
+	 */
+	@JsonIgnore
+	final List<DefaultMetadataElement> estaTemplates = []
+
 
 	static class SimpleElement {
 		/**

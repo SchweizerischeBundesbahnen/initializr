@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<head>
     <title>Spring Initializr</title>
     <link href="//fonts.googleapis.com/css?family=Varela+Round|Montserrat:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
@@ -118,6 +119,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-12 col-md-6">
+                    <h2>ESTA Cloud Templates</h2>
+
+                    <p>Let us generate an application structure template for your application. The dependencies you chose will be additionally added to your project.</p>
+
+                    <div class="form-group full estaTemplate-form-group">
+                        <label for="estaTemplate" class="control-label">${estaTemplates.title}</label>
+                        <select tabindex="10" class="form-control" name="estaTemplate" id="estaTemplate">
+                            <% estaTemplates.content.each { %>
+                            <option value="${it.id}" ${it.default==true ?
+                            ' selected' : ''}>${it.name}</option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="row hidden tosimpleversion">
                 <p>Too many options? <a href="#">Switch back to the simple version.</a></p>
@@ -141,7 +157,7 @@
                         <% it.content.each { %>
                         <div class="checkbox" data-range="${it.versionRange}">
                             <label>
-                                <input tabindex="13" type="checkbox" name="style" value="${it.id}">
+                                <input tabindex="13" type="checkbox" name="style" value="${it.id}"${it.enabled==true ? ' checked="true"' : ''}>
                                 ${it.name}
                                 <p class="help-block">${it.description}</p>
                             </label>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>${groupId}</groupId>
+	<artifactId>${artifactId}</artifactId>
+	<version>${version}</version>
+	<packaging>${packaging}</packaging>
+
+	<!-- ${demoDescription} -->
+	<name>${name}</name>
+	<description>${description}</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>${bootVersion}</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>${javaVersion}</java.version>
+	</properties>
+
+	<dependencies><% compileDependencies.each { %>
+		<dependency>
+			<groupId>${it.groupId}</groupId>
+			<artifactId>${it.artifactId}</artifactId><% if (it.version != null) { %>
+			<version>${it.version}</version><% } %>
+		</dependency><% } %><% if (language=='groovy') { %>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy</artifactId>
+		</dependency><% } %>
+		<% runtimeDependencies.each { %>
+		<dependency>
+			<groupId>${it.groupId}</groupId>
+			<artifactId>${it.artifactId}</artifactId><% if (it.version != null) { %>
+			<version>${it.version}</version><% } %>
+			<scope>runtime</scope>
+		</dependency><% } %><% providedDependencies.each { %>
+		<dependency>
+			<groupId>${it.groupId}</groupId>
+			<artifactId>${it.artifactId}</artifactId><% if (it.version != null) { %>
+			<version>${it.version}</version><% } %>
+			<scope>provided</scope>
+		</dependency><% } %>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency><% testDependencies.each { %>
+		<dependency>
+			<groupId>${it.groupId}</groupId>
+			<artifactId>${it.artifactId}</artifactId><% if (it.version != null) { %>
+			<version>${it.version}</version><% } %>
+			<scope>test</scope>
+		</dependency><% } %>
+	</dependencies>
+	<% if (boms) { %>
+	<dependencyManagement>
+		<dependencies><% boms.each { %>
+			<dependency>
+				<groupId>${it.groupId}</groupId>
+				<artifactId>${it.artifactId}</artifactId>
+				<version>${it.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency><% } %>
+		</dependencies>
+	</dependencyManagement>
+	<% } %>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin><% if (language=='groovy') { %>
+			<plugin>
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>addSources</goal>
+							<goal>addTestSources</goal>
+							<goal>generateStubs</goal>
+							<goal>compile</goal>
+							<goal>testGenerateStubs</goal>
+							<goal>testCompile</goal>
+							<goal>removeStubs</goal>
+							<goal>removeTestStubs</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin><% } %>
+		</plugins>
+	</build>
+	<% if (repositories) { %>
+	<repositories><% repositories.each { key, repo -> %>
+		<repository>
+			<id>${key}</id>
+			<name>${repo.name}</name>
+			<url>${repo.url}</url>
+			<snapshots>
+				<enabled>${repo.snapshotsEnabled}</enabled>
+			</snapshots>
+		</repository><% } %>
+	</repositories><% } %><% if (!bootVersion.contains("RELEASE")) { %>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories><% } %>
+
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>hosted.cloud.releases</id>
+			<url>\${nexus_release_url}</url>
+			<layout>default</layout>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>hosted.cloud.snapshots</id>
+			<url>\${nexus_snapshot_url}</url>
+			<layout>default</layout>
+		</snapshotRepository>
+	</distributionManagement>
+
+</project>

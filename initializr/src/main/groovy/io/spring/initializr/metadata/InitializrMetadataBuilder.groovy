@@ -158,6 +158,7 @@ class InitializrMetadataBuilder {
 			properties.name.apply(metadata.name)
 			properties.description.apply(metadata.description)
 			properties.packageName.apply(metadata.packageName)
+			metadata.estaTemplates.merge(properties.estaTemplates)
 		}
 	}
 

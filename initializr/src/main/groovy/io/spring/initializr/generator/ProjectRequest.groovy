@@ -54,6 +54,7 @@ class ProjectRequest {
 	String language
 	String packageName
 	String javaVersion
+	String estaTemplate
 
 	// The base directory to create in the archive - no baseDir by default
 	String baseDir

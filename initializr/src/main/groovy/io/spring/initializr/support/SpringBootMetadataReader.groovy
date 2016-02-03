@@ -37,8 +37,11 @@ class SpringBootMetadataReader {
 	 * Parse the content of the metadata at the specified url
 	 */
 	SpringBootMetadataReader(String url) {
-		def restTemplate = new RestTemplate()
-		def content = restTemplate.getForObject(url, String.class)
+		// get the metadata information from locally saved file in classpath due to connection timeout, to avoid setting a sbb proxy
+//		def restTemplate = new RestTemplate()
+//		def content = restTemplate.getForObject(url, String.class)
+		String content = this.getClass().getResource("/spring_project_metadata.json").text
+
 		this.content = new JsonSlurper().parseText(content)
 	}
 

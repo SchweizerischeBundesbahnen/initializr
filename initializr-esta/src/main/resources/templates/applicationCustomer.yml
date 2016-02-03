@@ -1,0 +1,32 @@
+server:
+  port: 8050
+
+spring:
+  rabbitmq:
+    host: \${RABBITMQ_ADDRESS:localhost}
+    port: \${RABBITMQ_PORT:5672}
+  oauth2:
+    resource:
+      userInfoUri: \${ESTA_CLOUDCONFIG_AUTHSERVER_USER_URL:http://localhost:9999/user}
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    serviceUrl:
+      defaultZone: \${ESTA_CLOUDCONFIG_SERVICE_REGISTRY_URL:http://localhost:8761/eureka/}
+
+auth:
+  server:
+    url: \${ESTA_CLOUDCONFIG_AUTHSERVER_TOKEN_URL:http://localhost:9999/oauth/check_token}
+    clientId: \${ESTA_CLOUDCONFIG_CLIENTID:acme}
+    clientSecret: \${ESTA_CLOUDCONFIG_CLIENTSECRET:acmesecret}
+
+logging:
+  level:
+    com.netflix.loadbalancer: 'INFO'
+    com.netflix.discovery: 'OFF'
+    org.springframework.cloud: 'DEBUG'
+    org.springframework.security: 'INFO'
+    org.springframework.web.client: 'DEBUG'
+    com.netflix.hystrix.AbstractCommand: 'DEBUG'

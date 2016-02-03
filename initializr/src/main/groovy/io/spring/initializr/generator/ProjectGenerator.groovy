@@ -35,7 +35,7 @@ import static io.spring.initializr.util.GroovyTemplate.template
  * @since 1.0
  */
 @Slf4j
-class ProjectGenerator {
+class ProjectGenerator implements ProjectGeneratorInterface {
 
 	private static final VERSION_1_2_0_RC1 = Version.parse('1.2.0.RC1')
 
@@ -164,7 +164,7 @@ class ProjectGenerator {
 		}
 	}
 
-	private void invokeListeners(ProjectRequest request) {
+	protected void invokeListeners(ProjectRequest request) {
 		listeners.each {
 			it.onGeneratedProject(request)
 		}
@@ -198,16 +198,16 @@ class ProjectGenerator {
 		model
 	}
 
-	private byte[] doGenerateMavenPom(Map model) {
+	protected byte[] doGenerateMavenPom(Map model) {
 		template 'starter-pom.xml', model
 	}
 
 
-	private byte[] doGenerateGradleBuild(Map model) {
+	protected byte[] doGenerateGradleBuild(Map model) {
 		template 'starter-build.gradle', model
 	}
 
-	private void writeGradleWrapper(File dir) {
+	protected void writeGradleWrapper(File dir) {
 		writeTextResource(dir, 'gradlew.bat', 'gradle/gradlew.bat')
 		writeTextResource(dir, 'gradlew', 'gradle/gradlew')
 
@@ -219,7 +219,7 @@ class ProjectGenerator {
 				'gradle/gradle/wrapper/gradle-wrapper.jar')
 	}
 
-	private void writeMavenWrapper(File dir) {
+	protected void writeMavenWrapper(File dir) {
 		writeTextResource(dir, 'mvnw.cmd', 'maven/mvnw.cmd')
 		writeTextResource(dir, 'mvnw', 'maven/mvnw')
 
@@ -250,7 +250,7 @@ class ProjectGenerator {
 		target
 	}
 
-	private File initializerProjectDir(File rootDir, ProjectRequest request) {
+	protected File initializerProjectDir(File rootDir, ProjectRequest request) {
 		if (request.baseDir) {
 			File dir = new File(rootDir, request.baseDir)
 			dir.mkdirs()
@@ -266,7 +266,7 @@ class ProjectGenerator {
 		target.write(body)
 	}
 
-	private void addTempFile(String group, File file) {
+	protected void addTempFile(String group, File file) {
 		def content = temporaryFiles[group]
 		if (!content) {
 			content = []
