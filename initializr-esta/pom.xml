@@ -3,7 +3,6 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>ch.sbb.esta.cloud</groupId>
 	<artifactId>initializr-esta</artifactId>
 	<version>1.0.1.BUILD-SNAPSHOT</version>
 
@@ -24,7 +23,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>io.spring.initalizr</groupId>
+			<groupId>ch.sbb.esta.cloud</groupId>
 			<artifactId>initializr</artifactId>			
 		</dependency>
 		<dependency>
@@ -39,8 +38,9 @@
 
 		<!--Test dependencies -->
 		<dependency>
-			<groupId>io.spring.initalizr</groupId>
+			<groupId>ch.sbb.esta.cloud</groupId>
 			<artifactId>initializr</artifactId>
+			<version>${initializr.version}</version>
 			<type>test-jar</type>
 		</dependency>
 
